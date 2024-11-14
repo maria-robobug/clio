@@ -55,6 +55,7 @@ TEST(LedgerUtilsTests, LedgerObjectTypeList)
         JS(mpt_issuance),
         JS(mptoken),
         JS(oracle),
+        JS(credential),
         JS(nunl)
     };
 
@@ -86,6 +87,7 @@ TEST(LedgerUtilsTests, AccountOwnedTypeList)
         JS(xchain_owned_create_account_claim_id),
         JS(did),
         JS(oracle),
+        JS(credential),
         JS(mpt_issuance),
         JS(mptoken)
     };

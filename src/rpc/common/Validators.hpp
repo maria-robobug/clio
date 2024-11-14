@@ -27,15 +27,13 @@
 #include <boost/json/object.hpp>
 #include <boost/json/value.hpp>
 #include <fmt/core.h>
+#include <xrpl/basics/base_uint.h>
 #include <xrpl/protocol/ErrorCodes.h>
 
 #include <concepts>
-#include <cstdint>
 #include <ctime>
 #include <functional>
 #include <initializer_list>
-#include <iomanip>
-#include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -153,7 +151,7 @@ struct Type final {
     verify(boost::json::value const& value, std::string_view key) const
     {
         if (not value.is_object() or not value.as_object().contains(key.data()))
-            return {};  // ignore. field does not exist, let 'required' fail instead
+            return {};  // ignore. If field is supposed to exist, let 'required' fail instead
 
         auto const& res = value.as_object().at(key.data());
         auto const convertible = (checkType<Types>(res) || ...);
@@ -559,6 +557,51 @@ struct CustomValidators final {
      * Used by amm_info.
      */
     static CustomValidator CurrencyIssueValidator;
+
+    /**
+     * @brief Provides a validator for validating authorized_credentials json array.
+     *
+     * Used by deposit_preauth.
+     */
+    static CustomValidator AuthorizeCredentialValidator;
+
+    /**
+     * @brief Provides a validator for validating credential_type.
+     *
+     * Used by AuthorizeCredentialValidator in deposit_preauth.
+     */
+    static CustomValidator CredentialTypeValidator;
+};
+
+/**
+ * @brief Validates that the elements of the array is of type Hex256 uint
+ */
+struct Hex256ItemType final {
+    /**
+     * @brief Validates given the prerequisite that the type of the json value is an array,
+     * verifies all values within the array is of uint256 hash
+     *
+     * @param value the value to verify
+     * @param key The key used to retrieve the tested value from the outer object
+     * @return `RippledError::rpcINVALID_PARAMS` if validation failed; otherwise no error is returned
+     */
+    [[nodiscard]] static MaybeError
+    verify(boost::json::value const& value, std::string_view key)
+    {
+        if (not value.is_object() or not value.as_object().contains(key.data()))
+            return {};  // ignore. If field is supposed to exist, let 'required' fail instead
+
+        auto const& res = value.as_object().at(key.data());
+
+        // loop through each item in the array and make sure it is uint256 hex string
+        for (auto const& elem : res.as_array()) {
+            ripple::uint256 num;
+            if (!elem.is_string() || !num.parseHex(elem.as_string())) {
+                return Error{Status{RippledError::rpcINVALID_PARAMS, "Item is not a valid uint256 type."}};
+            }
+        }
+        return {};
+    }
 };
 
 }  // namespace rpc::validation

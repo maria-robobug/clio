@@ -30,10 +30,12 @@
 
 #include <boost/asio/impl/spawn.hpp>
 #include <boost/asio/spawn.hpp>
+#include <boost/json/array.hpp>
 #include <boost/json/parse.hpp>
 #include <fmt/core.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <xrpl/basics/Blob.h>
 #include <xrpl/basics/base_uint.h>
 #include <xrpl/protocol/ErrorCodes.h>
 #include <xrpl/protocol/Indexes.h>
@@ -47,6 +49,7 @@
 #include <cstdint>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <tuple>
 #include <variant>
 #include <vector>
