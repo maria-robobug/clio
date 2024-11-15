@@ -33,6 +33,7 @@ target_sources(
           etl/TransformerTests.cpp
           # ETLng
           etlng/RegistryTests.cpp
+          etlng/ExtractionTests.cpp
           # Feed
           feed/BookChangesFeedTests.cpp
           feed/ForwardFeedTests.cpp

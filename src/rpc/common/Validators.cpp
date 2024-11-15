@@ -271,7 +271,7 @@ CustomValidator CustomValidators::CredentialTypeValidator =
             return Error{
                 Status{ClioError::rpcMALFORMED_AUTHORIZED_CREDENTIALS, std::string(key) + " greater than max length"}
             };
-}
+        }
 
         return MaybeError{};
     }};
