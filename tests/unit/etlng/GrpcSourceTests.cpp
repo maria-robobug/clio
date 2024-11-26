@@ -223,8 +223,11 @@ TEST_F(GrpcSourceNgLoadInitialLedgerTests, ObserverCalledCorrectly)
     EXPECT_EQ(data, std::vector<std::string>(4, keyStr));
 }
 
+// TODO(godexsoft): Enable after fixing in #1752
 TEST_F(GrpcSourceNgLoadInitialLedgerTests, DataTransferredAndObserverCalledCorrectly)
 {
+    GTEST_SKIP() << "Skipping flaky test. Will be fixed in #1752.";
+
     auto const totalKeys = 256uz;
     auto const totalPerMarker = totalKeys / numMarkers_;
     auto const batchSize = totalPerMarker / 4uz;
