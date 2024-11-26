@@ -36,7 +36,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <exception>
-#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -49,10 +48,8 @@ resolve(std::string const& ip, std::string const& port)
 {
     web::Resolver resolver;
 
-    if (auto const results = resolver.resolve(ip, port); not results.empty()) {
-        std::cout << "resolved ip: '" << results.at(0) << '\n';
+    if (auto const results = resolver.resolve(ip, port); not results.empty())
         return results.at(0);
-    }
 
     throw std::runtime_error("Failed to resolve " + ip + ":" + port);
 }
