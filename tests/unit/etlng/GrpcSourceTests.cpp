@@ -82,7 +82,7 @@ struct GrpcSourceNgTests : NoLoggerFixture, tests::util::WithMockXrpLedgerAPISer
             for (auto mi = 0uz; mi < markers.size(); ++mi) {
                 for (auto i = 0uz; i < totalPerMarker; ++i) {
                     auto const mapKey = ripple::strHex(markers.at(mi)).substr(0, 2);
-                    store_[mapKey].push(keys_.at(mi * totalPerMarker + i));
+                    store_[mapKey].push(keys_.at((mi * totalPerMarker) + i));
                 }
             }
         }
