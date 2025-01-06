@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 /*
     This file is part of clio: https://github.com/XRPLF/clio
-    Copyright (c) 2024, the clio developers.
+    Copyright (c) 2025, the clio developers.
 
     Permission to use, copy, modify, and distribute this software for any
     purpose with or without fee is hereby granted, provided that the above
@@ -19,35 +19,19 @@
 
 #pragma once
 
-#include "util/SignalsHandler.hpp"
-#include "util/newconfig/ConfigDefinition.hpp"
+#include <cstdint>
 
-namespace app {
+namespace util {
 
 /**
- * @brief The main application class
+ * @brief Convert megabytes to bytes
+ * @param mb Number of megabytes to convert
+ * @return The equivalent number of bytes
  */
-class ClioApplication {
-    util::config::ClioConfigDefinition const& config_;
-    util::SignalsHandler signalsHandler_;
+constexpr std::uint64_t
+mbToBytes(std::uint32_t mb)
+{
+    return mb * 1024ul * 1024ul;
+}
 
-public:
-    /**
-     * @brief Construct a new ClioApplication object
-     *
-     * @param config The configuration of the application
-     */
-    ClioApplication(util::config::ClioConfigDefinition const& config);
-
-    /**
-     * @brief Run the application
-     *
-     * @param useNgWebServer Whether to use the new web server
-     *
-     * @return exit code
-     */
-    int
-    run(bool useNgWebServer);
-};
-
-}  // namespace app
+};  // namespace util

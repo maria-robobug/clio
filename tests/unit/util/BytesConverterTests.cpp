@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 /*
     This file is part of clio: https://github.com/XRPLF/clio
-    Copyright (c) 2024, the clio developers.
+    Copyright (c) 2025, the clio developers.
 
     Permission to use, copy, modify, and distribute this software for any
     purpose with or without fee is hereby granted, provided that the above
@@ -17,37 +17,24 @@
 */
 //==============================================================================
 
-#pragma once
+#include "util/BytesConverter.hpp"
 
-#include "util/SignalsHandler.hpp"
-#include "util/newconfig/ConfigDefinition.hpp"
+#include <gtest/gtest.h>
+#include <cstdint>
+#include <limits>
 
-namespace app {
+using namespace util;
 
-/**
- * @brief The main application class
- */
-class ClioApplication {
-    util::config::ClioConfigDefinition const& config_;
-    util::SignalsHandler signalsHandler_;
+TEST(MBToBytesTest, SimpleValues)
+{
+    EXPECT_EQ(mbToBytes(0), 0);
+    EXPECT_EQ(mbToBytes(1), 1024 * 1024);
+    EXPECT_EQ(mbToBytes(2), 2 * 1024 * 1024);
+}
 
-public:
-    /**
-     * @brief Construct a new ClioApplication object
-     *
-     * @param config The configuration of the application
-     */
-    ClioApplication(util::config::ClioConfigDefinition const& config);
-
-    /**
-     * @brief Run the application
-     *
-     * @param useNgWebServer Whether to use the new web server
-     *
-     * @return exit code
-     */
-    int
-    run(bool useNgWebServer);
-};
-
-}  // namespace app
+TEST(MBToBytesTest, LimitValues)
+{
+    auto const maxNum = std::numeric_limits<std::uint32_t>::max();
+    EXPECT_NE(mbToBytes(maxNum), maxNum * 1024 * 1024);
+    EXPECT_EQ(mbToBytes(maxNum), maxNum * 1024ul * 1024ul);
+}
