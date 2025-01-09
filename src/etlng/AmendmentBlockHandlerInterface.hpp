@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 /*
     This file is part of clio: https://github.com/XRPLF/clio
-    Copyright (c) 2025, the clio developers.
+    Copyright (c) 2024, the clio developers.
 
     Permission to use, copy, modify, and distribute this software for any
     purpose with or without fee is hereby granted, provided that the above
@@ -17,25 +17,21 @@
 */
 //==============================================================================
 
-#include "util/BytesConverter.hpp"
+#pragma once
 
-#include <gtest/gtest.h>
+namespace etlng {
 
-#include <cstdint>
-#include <limits>
+/**
+ * @brief The interface of a handler for amendment blocking
+ */
+struct AmendmentBlockHandlerInterface {
+    virtual ~AmendmentBlockHandlerInterface() = default;
 
-using namespace util;
+    /**
+     * @brief The function to call once an amendment block has been discovered
+     */
+    virtual void
+    notifyAmendmentBlocked() = 0;
+};
 
-TEST(MBToBytesTest, SimpleValues)
-{
-    EXPECT_EQ(mbToBytes(0), 0);
-    EXPECT_EQ(mbToBytes(1), 1024 * 1024);
-    EXPECT_EQ(mbToBytes(2), 2 * 1024 * 1024);
-}
-
-TEST(MBToBytesTest, LimitValues)
-{
-    auto const maxNum = std::numeric_limits<std::uint32_t>::max();
-    EXPECT_NE(mbToBytes(maxNum), maxNum * 1024 * 1024);
-    EXPECT_EQ(mbToBytes(maxNum), maxNum * 1024ul * 1024ul);
-}
+}  // namespace etlng

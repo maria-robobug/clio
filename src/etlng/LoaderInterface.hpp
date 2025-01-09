@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 /*
     This file is part of clio: https://github.com/XRPLF/clio
-    Copyright (c) 2025, the clio developers.
+    Copyright (c) 2024, the clio developers.
 
     Permission to use, copy, modify, and distribute this software for any
     purpose with or without fee is hereby granted, provided that the above
@@ -17,25 +17,36 @@
 */
 //==============================================================================
 
-#include "util/BytesConverter.hpp"
+#pragma once
 
-#include <gtest/gtest.h>
+#include "etlng/Models.hpp"
 
-#include <cstdint>
-#include <limits>
+#include <xrpl/protocol/LedgerHeader.h>
 
-using namespace util;
+#include <optional>
 
-TEST(MBToBytesTest, SimpleValues)
-{
-    EXPECT_EQ(mbToBytes(0), 0);
-    EXPECT_EQ(mbToBytes(1), 1024 * 1024);
-    EXPECT_EQ(mbToBytes(2), 2 * 1024 * 1024);
-}
+namespace etlng {
 
-TEST(MBToBytesTest, LimitValues)
-{
-    auto const maxNum = std::numeric_limits<std::uint32_t>::max();
-    EXPECT_NE(mbToBytes(maxNum), maxNum * 1024 * 1024);
-    EXPECT_EQ(mbToBytes(maxNum), maxNum * 1024ul * 1024ul);
-}
+/**
+ * @brief An interface for a ETL Loader
+ */
+struct LoaderInterface {
+    virtual ~LoaderInterface() = default;
+
+    /**
+     * @brief Load ledger data
+     * @param data The data to load
+     */
+    virtual void
+    load(model::LedgerData const& data) = 0;
+
+    /**
+     * @brief Load the initial ledger
+     * @param data The data to load
+     * @return Optional ledger header
+     */
+    virtual std::optional<ripple::LedgerHeader>
+    loadInitialLedger(model::LedgerData const& data) = 0;
+};
+
+}  // namespace etlng
