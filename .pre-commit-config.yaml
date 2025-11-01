@@ -16,7 +16,7 @@ exclude: ^(docs/doxygen-awesome-theme/|conan\.lock$)
 repos:
   # `pre-commit sample-config` default hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b # frozen: v5.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
@@ -37,7 +37,7 @@ repos:
         exclude: LICENSE.md
 
   - repo: https://github.com/hadolint/hadolint
-    rev: c3dc18df7a501f02a560a2cc7ba3c69a85ca01d3 # frozen: v2.13.1-beta
+    rev: 4e697ba704fd23b2409b947a319c19c3ee54d24f # frozen: v2.14.0
     hooks:
       - id: hadolint-docker
         # hadolint-docker is a special hook that runs hadolint in a Docker container
@@ -56,7 +56,7 @@ repos:
           ]
 
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: 6641d4ba5b684fffe195b9820345de1bf19f3181 # frozen: v3.89.2
+    rev: b84c3d14d189e16da175e2c27fa8136603783ffc # frozen: v3.90.12
     hooks:
       - id: trufflehog
         entry: trufflehog git file://. --since-commit HEAD --no-verification --fail
@@ -86,7 +86,7 @@ repos:
         language: script
 
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: 6b9072cd80691b1b48d80046d884409fb1d962d1 # frozen: v20.1.7
+    rev: 719856d56a62953b8d2839fb9e851f25c3cfeef8 # frozen: v21.1.2
     hooks:
       - id: clang-format
         args: [--style=file]
