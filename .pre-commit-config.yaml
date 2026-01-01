@@ -16,7 +16,7 @@ exclude: ^(docs/doxygen-awesome-theme/|conan\.lock$)
 repos:
   # `pre-commit sample-config` default hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b # frozen: v5.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
@@ -26,18 +26,18 @@ repos:
 
   # Autoformat: YAML, JSON, Markdown, etc.
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: 5ba47274f9b181bce26a5150a725577f3c336011 # frozen: v3.6.2
+    rev: 14abee445aea04b39069c19b4bd54efff6775819 # frozen: v3.7.4
     hooks:
       - id: prettier
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: 192ad822316c3a22fb3d3cc8aa6eafa0b8488360 # frozen: v0.45.0
+    rev: 76b3d32d3f4b965e1d6425253c59407420ae2c43 # frozen: v0.47.0
     hooks:
       - id: markdownlint-fix
         exclude: LICENSE.md
 
   - repo: https://github.com/hadolint/hadolint
-    rev: c3dc18df7a501f02a560a2cc7ba3c69a85ca01d3 # frozen: v2.13.1-beta
+    rev: 4e697ba704fd23b2409b947a319c19c3ee54d24f # frozen: v2.14.0
     hooks:
       - id: hadolint-docker
         # hadolint-docker is a special hook that runs hadolint in a Docker container
@@ -56,7 +56,7 @@ repos:
           ]
 
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: 6641d4ba5b684fffe195b9820345de1bf19f3181 # frozen: v3.89.2
+    rev: ef6e76c3c4023279497fab4721ffa071a722fd05 # frozen: v3.92.4
     hooks:
       - id: trufflehog
         entry: trufflehog git file://. --since-commit HEAD --no-verification --fail
@@ -86,7 +86,7 @@ repos:
         language: script
 
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: 6b9072cd80691b1b48d80046d884409fb1d962d1 # frozen: v20.1.7
+    rev: 75ca4ad908dc4a99f57921f29b7e6c1521e10b26 # frozen: v21.1.8
     hooks:
       - id: clang-format
         args: [--style=file]
