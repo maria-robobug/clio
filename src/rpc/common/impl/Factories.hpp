@@ -65,8 +65,7 @@ makeFieldProcessor(std::string const& key, Processors&&... procs)
                     static_assert(util::Unsupported<decltype(*req)>);
                 }
             }(),
-            ...
-        );
+            ...);
 
         if (firstFailure)
             return std::unexpected{std::move(firstFailure).value()};
@@ -91,8 +90,7 @@ makeFieldChecker(std::string const& key, Checks&&... checks)
                 if (auto res = req->check(j, key); res)
                     warnings.push_back(std::move(res).value());
             }(),
-            ...
-        );
+            ...);
         return warnings;
     };
 }
