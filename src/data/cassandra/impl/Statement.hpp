@@ -124,8 +124,9 @@ public:
         } else if constexpr (std::is_convertible_v<DecayedType, Text>) {
             auto const rc = cass_statement_bind_string_n(*this, idx, value.text.c_str(), value.text.size());
             throwErrorIfNeeded(rc, "Bind string (as TEXT)");
-        } else if constexpr (std::is_same_v<DecayedType, UintTupleType> ||
-                             std::is_same_v<DecayedType, UintByteTupleType>) {
+        } else if constexpr (
+            std::is_same_v<DecayedType, UintTupleType> || std::is_same_v<DecayedType, UintByteTupleType>
+        ) {
             auto const rc = cass_statement_bind_tuple(*this, idx, Tuple{std::forward<Type>(value)});
             throwErrorIfNeeded(rc, "Bind tuple<uint32, uint32> or <uint32_t, ripple::uint256>");
         } else if constexpr (std::is_same_v<DecayedType, ByteVectorType>) {
