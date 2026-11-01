@@ -120,7 +120,7 @@ protected:
             grpcSourceMock_,
             subscriptionSourceMock_,
             forwardingSourceMock_
-        };
+    };
 };
 
 TEST_F(SourceImplNgTest, run)
